@@ -47,3 +47,25 @@ button:hover {
     justify-content: space-between;
     align-items: center;
 }
+
+/* This only triggers for screens smaller than 600px */
+@media screen and (max-width: 600px) {
+  body {
+    padding: 20px; /* Reduce the big gap on the sides */
+  }
+
+  input {
+    width: 90%; /* Make the input box take up most of the screen width */
+    font-size: 16px; /* Prevents iPhones from zooming in when you tap the box */
+  }
+
+  button {
+    width: 90%;
+    margin-top: 10px;
+    padding: 15px; /* Make the button bigger so it's easier to tap with a thumb */
+  }
+
+  .team-card {
+    width: 90%; /* Make the result cards wider on mobile */
+  }
+}
