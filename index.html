@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tennis Teams Maker</title>
+    <style>
+        /* This targets the whole page */
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+            padding: 50px;
+        }
+
+        /* Styling our Input box */
+        input {
+            padding: 10px;
+            width: 300px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        /* Styling the Button */
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Making the button change color when you touch it */
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Styling the Results Bucket */
+        #teamResults {
+            margin-top: 30px;
+            font-weight: bold;
+            color: #333;
+        }
+        .team-card {
+            background-color: white;
+            border-left: 5px solid #007bff; /* A nice blue stripe on the side */
+            margin: 10px auto;
+            padding: 15px;
+            width: 300px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* This adds a soft shadow to make it "pop" */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        </style>
+</head>
+<body>
+
+    <h1>Doubles Team Generator</h1>
+    <p>Enter player names below, separated by commas:</p>
+    
+    <input type="text" id="playerInput" placeholder="e.g. Virinchi, Santhosh, Sam, Alex">
+    <button onclick="makeTeams()">Generate Teams!</button>
+
+    <div id="teamResults"></div>
+
+    <script>
+    function makeTeams() {
+        // 1. Grab the names from the input box
+        let input = document.getElementById('playerInput').value;
+        // 2. Turn that long string into a list (Array). We tell it to "split" every time it sees a comma
+        let playerList = input.split(',');
+        // 3. Show us what we got in the "Console"
+        console.log(playerList);
+        // This loop starts at the end of the list and works backward
+        if (playerList.length % 2 !== 0) {
+            alert("Oops! You need an even number of players for doubles.");
+            return; // This tells the computer: "Stop right here! Don't do any more work."
+        }
+        for (let i = playerList.length - 1; i > 0; i--) {
+            // 1. Pick a random "spot" in the list
+            let j = Math.floor(Math.random() * (i + 1)); 
+            // 2. Swap the person at spot 'i' with the person at spot 'j'
+            // Like swapping two cards in your hand
+            let temp = playerList[i];
+            playerList[i] = playerList[j];
+            playerList[j] = temp;
+        }
+
+        // let outputText = ""; // A fresh jar to hold our team sentences
+
+        // for (let i = 0; i < playerList.length; i += 2) {
+        //     let teamNum = (i / 2) + 1;
+        //     // We combine the names into a nice sentence
+        //     outputText += "Team " + teamNum + ": " + playerList[i] + " - " + playerList[i+1] + "<br>";
+        // }
+        let outputHTML = ""; // We'll store all our boxes here
+
+        for (let i = 0; i < playerList.length; i += 2) {
+            let teamNum = (i / 2) + 1;
+            
+            // We create a "box" string for each team
+            outputHTML += `
+                <div class="team-card">
+                    <span><strong>Team ${teamNum}</strong></span>
+                    <span>${playerList[i]} & ${playerList[i+1]}</span>
+                </div>
+            `;
+        }
+
+        document.getElementById('teamResults').innerHTML = outputHTML;
+
+        // Finally, pour the jar into the bucket on the screen
+        document.getElementById('teamResults').innerHTML = outputText;        
+    }
+    </script>
+
+</body>
+</html>
