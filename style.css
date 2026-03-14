@@ -1,0 +1,49 @@
+        /* This targets the whole page */
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+            padding: 50px;
+        }
+        
+        /* Styling our Input box */
+        input {
+            padding: 10px;
+            width: 300px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        /* Styling the Button */
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Making the button change color when you touch it */
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Styling the Results Bucket */
+        #teamResults {
+            margin-top: 30px;
+            font-weight: bold;
+            color: #333;
+        }
+        .team-card {
+            background-color: white;
+            border-left: 5px solid #007bff; /* A nice blue stripe on the side */
+            margin: 10px auto;
+            padding: 15px;
+            width: 300px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* This adds a soft shadow to make it "pop" */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
