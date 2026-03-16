@@ -69,3 +69,22 @@ button:hover {
     width: 90%; /* Make the result cards wider on mobile */
   }
 }
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.tabs button {
+    background-color: #e9ecef;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+/* Give the active tab a different look */
+.tabs button:active, .tabs button:focus {
+    background-color: #007bff;
+    color: white;
+}

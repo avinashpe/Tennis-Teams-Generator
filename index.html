@@ -11,9 +11,31 @@
     <h1>Team</h1>
     <h1>Generator</h1>
     <p>Enter player names below, separated by commas</p>
-    
-    <input type="text" id="playerInput" placeholder="e.g. Virinchi, Santhosh, Sam, Alex">
-    <button onclick="makeTeams()">Generate Teams!</button>
+
+    <div class="tabs">
+    <button onclick="showTab('normal')">Normal Mode</button>
+    <button onclick="showTab('balanced')">Balanced Mode</button>
+    </div>
+
+    <hr>
+
+    <div id="normalSection">
+        <h3>Normal Doubles</h3>
+        <p>Enter all players together:</p>
+        <input type="text" id="playerInput" placeholder="Virinchi, Sam, Alex, Jo...">
+        <button onclick="makeTeams()">Generate Teams!</button>
+    </div>
+
+    <div id="balancedSection" style="display:none;">
+        <h3>Balanced A-Grade & B-Grade</h3>
+        <p>Enter A-Grade Players:</p>
+        <input type="text" id="gradeAInput" placeholder="Pro 1, Pro 2, Pro 3...">
+        <br><br>
+        <p>Enter B-Grade Players:</p>
+        <input type="text" id="gradeBInput" placeholder="Rookie 1, Rookie 2, Rookie 3...">
+        <br><br>
+        <button onclick="makeBalancedTeams()">Generate Balanced Teams!</button>
+    </div>
 
     <div id="teamResults"></div>
 

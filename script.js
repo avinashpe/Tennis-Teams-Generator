@@ -1,38 +1,34 @@
+/**
+ * NORMAL MODE: Generates random pairs from a single list
+ */
 function makeTeams() {
-    // 1. Grab the names from the input box
+    // 1. Grab raw input
     let input = document.getElementById('playerInput').value;
-    // 2. Turn that long string into a list (Array). We tell it to "split" every time it sees a comma
-    let playerList = input.split(',');
-    // 3. Show us what we got in the "Console"
-    console.log(playerList);
-    // This loop starts at the end of the list and works backward
+    
+    // 2. Clean data: Split by comma, trim whitespace, and remove empty entries
+    let rawList = input.split(',').map(name => name.trim()).filter(name => name !== "");
+
+    // 3. De-duplication: Remove repeated names
+    let playerList = [...new Set(rawList)];
+
+    // 4. Feedback: Tell user if duplicates were removed
+    if (playerList.length < rawList.length) {
+        alert("Duplicate names detected and removed!");
+    }
+
+    // 5. Security Guard: Check for even numbers
     if (playerList.length % 2 !== 0) {
         alert("Oops! You need an even number of players for doubles.");
-        return; // This tells the computer: "Stop right here! Don't do any more work."
-    }
-    for (let i = playerList.length - 1; i > 0; i--) {
-        // 1. Pick a random "spot" in the list
-        let j = Math.floor(Math.random() * (i + 1)); 
-        // 2. Swap the person at spot 'i' with the person at spot 'j'
-        // Like swapping two cards in your hand
-        let temp = playerList[i];
-        playerList[i] = playerList[j];
-        playerList[j] = temp;
+        return; 
     }
 
-    // let outputText = ""; // A fresh jar to hold our team sentences
+    // 6. Processing: Shuffle the unique list
+    shuffle(playerList);
 
-    // for (let i = 0; i < playerList.length; i += 2) {
-    //     let teamNum = (i / 2) + 1;
-    //     // We combine the names into a nice sentence
-    //     outputText += "Team " + teamNum + ": " + playerList[i] + " - " + playerList[i+1] + "<br>";
-    // }
-    let outputHTML = ""; // We'll store all our boxes here
-
+    // 7. Painter: Build the HTML cards
+    let outputHTML = ""; 
     for (let i = 0; i < playerList.length; i += 2) {
         let teamNum = (i / 2) + 1;
-        
-        // We create a "box" string for each team
         outputHTML += `
             <div class="team-card">
                 <span><strong>Team ${teamNum}</strong></span>
@@ -41,8 +37,73 @@ function makeTeams() {
         `;
     }
 
+    // 8. Output: Display results in the bucket
     document.getElementById('teamResults').innerHTML = outputHTML;
+}
 
-    // Finally, pour the jar into the bucket on the screen
-    document.getElementById('teamResults').innerHTML = outputText;        
+/**
+ * BALANCED MODE: Pairs 1 Player from Grade A with 1 Player from Grade B
+ */
+function makeBalancedTeams() {
+    // 1. Grab and clean both lists
+    let rawA = document.getElementById('gradeAInput').value.split(',').map(name => name.trim()).filter(name => name !== "");
+    let rawB = document.getElementById('gradeBInput').value.split(',').map(name => name.trim()).filter(name => name !== "");
+
+    // 2. De-duplication for each list
+    let listA = [...new Set(rawA)];
+    let listB = [...new Set(rawB)];
+
+    // 3. Security Guard: Check for equal group sizes
+    if (listA.length !== listB.length) {
+        alert(`Uneven Groups! You have ${listA.length} A-Grade and ${listB.length} B-Grade players. They must be equal!`);
+        return;
+    }
+
+    // 4. Cross-Check: Ensure no one is in BOTH lists
+    let crossOver = listA.filter(name => listB.includes(name));
+    if (crossOver.length > 0) {
+        alert("Error: " + crossOver.join(", ") + " cannot be in both A and B lists!");
+        return;
+    }
+    
+    // 5. Processing: Shuffle both lists separately
+    shuffle(listA);
+    shuffle(listB);
+
+    // 6. Painter: Pair them up 1-to-1
+    let outputHTML = "";
+    for (let i = 0; i < listA.length; i++) {
+        outputHTML += `
+            <div class="team-card">
+                <span><strong>Balanced Team ${i + 1}</strong></span>
+                <span>${listA[i]} (A) & ${listB[i]} (B)</span>
+            </div>
+        `;
+    }
+    document.getElementById('teamResults').innerHTML = outputHTML;
+}
+
+/**
+ * UI NAVIGATION: Switches between Normal and Balanced sections
+ */
+function showTab(mode) {
+    if (mode === 'normal') {
+        document.getElementById('normalSection').style.display = 'block';
+        document.getElementById('balancedSection').style.display = 'none';
+    } else {
+        document.getElementById('normalSection').style.display = 'none';
+        document.getElementById('balancedSection').style.display = 'block';
+    }
+    // Clear results when switching tabs
+    document.getElementById('teamResults').innerHTML = "";
+}
+
+/**
+ * HELPER TOOL: Randomizes any array (Fisher-Yates Shuffle)
+ */
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]; 
+    }
 }
