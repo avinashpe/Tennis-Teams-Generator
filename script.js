@@ -1,5 +1,5 @@
 /**
- * Doubles: Generates random pairs from a single list
+ * NORMAL MODE: Generates random pairs from a single list
  */
 function makeTeams() {
     // 1. Grab raw input
@@ -42,9 +42,9 @@ function makeTeams() {
 }
 
 /**
- * Mixed Doubles: Pairs 1 Player from Grade A with 1 Player from Grade B
+ * BALANCED MODE: Pairs 1 Player from Grade A with 1 Player from Grade B
  */
-function makeMixedTeams() {
+function makeBalancedTeams() {
     // 1. Grab and clean both lists
     let rawA = document.getElementById('gradeAInput').value.split(',').map(name => name.trim()).filter(name => name !== "");
     let rawB = document.getElementById('gradeBInput').value.split(',').map(name => name.trim()).filter(name => name !== "");
@@ -75,7 +75,7 @@ function makeMixedTeams() {
     for (let i = 0; i < listA.length; i++) {
         outputHTML += `
             <div class="team-card">
-                <span><strong>Mixed Team ${i + 1}</strong></span>
+                <span><strong>Balanced Team ${i + 1}</strong></span>
                 <span>${listA[i]} (A) & ${listB[i]} (B)</span>
             </div>
         `;
@@ -84,34 +84,17 @@ function makeMixedTeams() {
 }
 
 /**
- * UI NAVIGATION: Switches between Normal and Mixed sections
+ * UI NAVIGATION: Switches between Normal and Balanced sections
  */
 function showTab(mode) {
-    // 1. Get references to the buttons and sections
-    const normalBtn = document.getElementById('normalBtn');
-    const mixedBtn = document.getElementById('mixedBtn');
-    const normalSec = document.getElementById('normalSection');
-    const mixedSec = document.getElementById('mixedSection');
-
     if (mode === 'normal') {
-        // Show Normal, Hide Mixed
-        normalSec.style.display = 'block';
-        mixedSec.style.display = 'none';
-        
-        // Update Button Highlighting
-        normalBtn.classList.add('active');
-        mixedBtn.classList.remove('active');
+        document.getElementById('normalSection').style.display = 'block';
+        document.getElementById('balancedSection').style.display = 'none';
     } else {
-        // Show Mixed, Hide Normal
-        normalSec.style.display = 'none';
-        mixedSec.style.display = 'block';
-        
-        // Update Button Highlighting
-        mixedBtn.classList.add('active');
-        normalBtn.classList.remove('active');
+        document.getElementById('normalSection').style.display = 'none';
+        document.getElementById('balancedSection').style.display = 'block';
     }
-    
-    // Clear results when switching
+    // Clear results when switching tabs
     document.getElementById('teamResults').innerHTML = "";
 }
 

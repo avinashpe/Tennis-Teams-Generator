@@ -13,8 +13,8 @@
     <p>Enter player names below, separated by commas</p>
 
     <div class="tabs">
-    <button id="normalBtn" class="tab-button active" onclick="showTab('normal')">Doubles</button>
-    <button id="mixedBtn" class="tab-button" onclick="showTab('mixed')">Mixed Doubles</button>
+    <button onclick="showTab('normal')">Normal Mode</button>
+    <button onclick="showTab('balanced')">Balanced Mode</button>
     </div>
 
     <hr>
@@ -26,15 +26,15 @@
         <button onclick="makeTeams()">Generate Teams!</button>
     </div>
 
-    <div id="mixedSection" style="display:none;">
-        <h3>Mixed A-Grade & B-Grade</h3>
+    <div id="balancedSection" style="display:none;">
+        <h3>Balanced A-Grade & B-Grade</h3>
         <p>Enter A-Grade Players:</p>
         <input type="text" id="gradeAInput" placeholder="Pro 1, Pro 2, Pro 3...">
         <br><br>
         <p>Enter B-Grade Players:</p>
         <input type="text" id="gradeBInput" placeholder="Rookie 1, Rookie 2, Rookie 3...">
         <br><br>
-        <button onclick="makeMixedTeams()">Generate Mixed Teams!</button>
+        <button onclick="makeBalancedTeams()">Generate Balanced Teams!</button>
     </div>
 
     <div id="teamResults"></div>
